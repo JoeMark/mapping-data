@@ -12,6 +12,7 @@
 		<nav><!-- add a navigation menu-->
 			<a href="emoji.html">Emoji</a>
 			<a href="images/gallery.html">Gallery</a>
+			<a href="sign_up.html">Sign up</a>
 		</nav>
 		<h2>Links</h2>
 		<p>My favourite websites are:</p>
@@ -34,6 +35,8 @@
 		   <p class="lowOrHi"></p>
 		</div>
 
+
+
 		<script>
 		   // Your JavaScript goes here
 		   let randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -47,7 +50,40 @@
 
 		   let guessCount = 1;
 		   let resetButton;
-		</script>
+
+		   function checkGuess() {
+			const userGuess = Number(guessField.value);
+			if (guessCount === 1) {
+			  guesses.textContent = 'Previous guesses: ';
+			}
+			guesses.textContent += `${userGuess} `;
+
+			if (userGuess === randomNumber) {
+			  lastResult.textContent = 'Congratulations! You got it right!';
+			  lastResult.style.backgroundColor = 'green';
+			  lowOrHi.textContent = '';
+			  setGameOver();
+			} else if (guessCount === 10) {
+			  lastResult.textContent = '!!!GAME OVER!!!';
+			  lowOrHi.textContent = '';
+			  setGameOver();
+			} else {
+			  lastResult.textContent = 'Wrong!';
+			  lastResult.style.backgroundColor = 'red';
+			  if (userGuess < randomNumber) {
+			    lowOrHi.textContent = 'Last guess was too low!';
+			  } else if (userGuess > randomNumber) {
+			    lowOrHi.textContent = 'Last guess was too high!';
+			  }
+		        }
+		   
+		          guessCount++;
+		          guessField.value = '';
+		          guessField.focus();
+		        }
+		     guessSubmit.addEventListener('click', checkGuess);
+
+		  </script>
 	</body>
 	
 </html>
